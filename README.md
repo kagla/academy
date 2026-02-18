@@ -1,37 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 명문학원 - 대입 전문 학원 웹사이트
 
-## Getting Started
+명문학원은 체계적인 커리큘럼과 전문 강사진을 통해 학생들의 대입 성공을 지원하는 입시 전문 학원 웹사이트입니다.
 
-First, run the development server:
+## 기술 스택
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4 + shadcn/ui
+- **Database**: MySQL (mysql2)
+- **Theme**: next-themes (다크모드 지원)
+- **Process Manager**: PM2
+- **Web Server**: Apache2 (Reverse Proxy) + Let's Encrypt SSL
+
+## 주요 기능
+
+### 사용자 페이지
+- **메인 페이지** - 학원 소개 및 주요 정보
+- **입학 안내** - 상담 신청, Q&A 게시판
+- **학습 관리** - 주간 급식 식단표
+- **커뮤니티** - 공지사항, 학부모 게시판
+- **합격 수기** - 합격 성공 사례
+
+### 관리자 페이지 (`/admin`)
+- 대시보드, 공지사항 관리
+- 상담 신청 관리, Q&A 관리
+- 급식 식단 관리, 학부모 게시판 관리
+- 합격 수기 관리
+
+### API (`/api`)
+- 공지사항, 상담, Q&A, 급식 식단, 학부모 게시판, 합격 수기 CRUD
+- 관리자 인증 (로그인/로그아웃)
+
+## 시작하기
 
 ```bash
+# 의존성 설치
+npm install
+
+# 개발 서버
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 프로덕션 빌드
+npm run build
+
+# 프로덕션 실행
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 배포
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# PM2로 실행
+pm2 start ecosystem.config.cjs
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# PM2 상태 확인
+pm2 status
 
-## Learn More
+# 로그 확인
+pm2 logs academy
+```
 
-To learn more about Next.js, take a look at the following resources:
+- **도메인**: https://academy.gnuboard.net
+- **포트**: 5002
+- **PM2 앱 이름**: academy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 프로젝트 구조
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# academy
+```
+src/
+├── app/
+│   ├── admin/          # 관리자 페이지
+│   ├── api/            # API 라우트
+│   ├── community/      # 커뮤니티 (공지사항, 학부모)
+│   ├── entrance/       # 입학 안내 (상담, Q&A)
+│   ├── learn/          # 학습 관리 (급식 식단)
+│   ├── story/          # 합격 수기
+│   ├── layout.tsx      # 루트 레이아웃
+│   └── page.tsx        # 메인 페이지
+├── components/         # 공통 컴포넌트
+└── lib/                # 유틸리티
+```
